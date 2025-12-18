@@ -143,7 +143,6 @@ function findLargestInnerRect(reds) {
 					}
 				}
 				allGreen = allGreen && edgeInGreen;
-				console.log();
 			}
 			for (const [start, end] of boxVEdges) {
 				const x = start[0];
@@ -161,7 +160,6 @@ function findLargestInnerRect(reds) {
 					}
 				}
 				allGreen = allGreen && edgeInGreen;
-				console.log();
 			}
 
 			if (allGreen) maxGreens = Math.max(maxGreens, (botRight[0] - topLeft[0] + 1) * (botRight[1] - topLeft[1] + 1));
