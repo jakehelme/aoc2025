@@ -1,5 +1,5 @@
-const raw = require('./input.js');
-const solve = require('./equationSolver.js');
+import { raw } from './input.js';
+import solve from './equationSolver.js';
 
 const ex =
 	`[.##.] (3) (1,3) (2) (2,3) (0,2) (0,1) {3,5,4,7}

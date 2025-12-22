@@ -1,6 +1,8 @@
-const glpk = require('glpk.js')();
+import glpk from 'glpk.js';
 
-function solve(A, b) {
+const Glpk = glpk();
+
+export default function solve(A, b) {
 	const numVars = A[0].length;
 
 	const variables = Array.from({ length: numVars }, (_, i) => ({
@@ -10,7 +12,7 @@ function solve(A, b) {
 
 	const bounds = Array.from({ length: numVars }, (_, i) => ({
 		name: `x${i}`,
-		type: glpk.GLP_LO, // lower bound only
+		type: Glpk.GLP_LO, // lower bound only
 		lb: 0
 	}));
 
@@ -21,7 +23,7 @@ function solve(A, b) {
 			coef
 		})),
 		bnds: {
-			type: glpk.GLP_FX,
+			type: Glpk.GLP_FX,
 			lb: b[r],
 			ub: b[r]
 		}
@@ -30,7 +32,7 @@ function solve(A, b) {
 	const model = {
 		name: 'min-sum-integer-solution',
 		objective: {
-			direction: glpk.GLP_MIN,
+			direction: Glpk.GLP_MIN,
 			name: 'min_sum',
 			vars: variables
 		},
@@ -39,11 +41,9 @@ function solve(A, b) {
 		generals: variables.map(v => v.name) // 👈 integer variables
 	};
 
-	const result = glpk.solve(model, {
-		msgLevel: glpk.GLP_MSG_OFF
+	const result = Glpk.solve(model, {
+		msgLevel: Glpk.GLP_MSG_OFF
 	});
 
 	return result;
 }
-
-module.exports = solve;
